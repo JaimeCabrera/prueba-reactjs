@@ -1,5 +1,10 @@
 import React from "react";
+import { AppRouter } from "./routers/AppRouter";
 
 export const App = () => {
-  return <div>App de react</div>;
+  return (
+    <div className="container">
+      <AppRouter />
+    </div>
+  );
 };
