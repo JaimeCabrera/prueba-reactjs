@@ -1,15 +1,19 @@
 import axios from "axios";
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { login } from "../actions/auth";
 import { useForm } from "../hooks/useForm";
 
 export const Login = () => {
+  const [credentials, setCredentials] = useState({
+    username: null,
+    password: null,
+  });
   // dispatch
   const dispatch = useDispatch();
   // hook para la navegacion
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   // useForm
   const [values, handleInputChange] = useForm({
@@ -21,13 +25,18 @@ export const Login = () => {
   // func to submit data to server
   const handleLogin = (e) => {
     e.preventDefault();
-    // veriffy username
+    // veriffy username with api
     const BASE_URL = "https://swapi.dev/api/";
-    axios.get(`${BASE_URL}/people/?search=${username}`).then((res) => {
-      console.log("respuesta del backend", res);
-    });
-    // navigate("/list", { replace: true });
-    dispatch(login("blond"));
+    axios
+      .get(`${BASE_URL}/people/?search=${username}`)
+      .then((res) => {
+        setCredentials({ username: res.data.results[0].name });
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+    navigate("/list", { replace: false });
+    dispatch(login(credentials.username));
   };
 
   return (
