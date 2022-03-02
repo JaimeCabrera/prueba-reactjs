@@ -1,20 +1,16 @@
-import axios from "axios";
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { login } from "../actions/auth";
+import { startLoginUsernamePassword } from "../actions/auth";
+import { Loading } from "../components/Loading";
 import { useForm } from "../hooks/useForm";
 
 export const Login = () => {
-  const [credentials, setCredentials] = useState({
-    username: null,
-    password: null,
-  });
   // dispatch
   const dispatch = useDispatch();
+  const { loading } = useSelector((state) => state.auth);
   // hook para la navegacion
   const navigate = useNavigate();
-
   // useForm
   const [values, handleInputChange] = useForm({
     username: "Luke Skywalker",
@@ -23,25 +19,24 @@ export const Login = () => {
   // extract form values
   const { username, password } = values;
   // func to submit data to server
-  const handleLogin = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     // veriffy username with api
-    const BASE_URL = "https://swapi.dev/api/";
-    axios
-      .get(`${BASE_URL}/people/?search=${username}`)
-      .then((res) => {
-        setCredentials({ username: res.data.results[0].name });
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-    navigate("/list", { replace: false });
-    dispatch(login(credentials.username));
+    dispatch(startLoginUsernamePassword(username));
   };
+  if (!loading) {
+    navigate("/list", { replace: false });
+  } else {
+    return (
+      <>
+        <Loading />
+      </>
+    );
+  }
 
   return (
     <div className="container">
-      <form onSubmit={handleLogin}>
+      <form onSubmit={handleSubmit}>
         <div className="form-group mt-2 mb-2">
           <input
             type="text"
@@ -64,7 +59,7 @@ export const Login = () => {
             onChange={handleInputChange}
           />
         </div>
-        <button type="submit" className="btn btn-primary">
+        <button disabled={loading} type="submit" className="btn btn-primary">
           Ingresar
         </button>
       </form>

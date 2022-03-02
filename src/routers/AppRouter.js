@@ -7,7 +7,6 @@ import { Login } from "../pages/Login";
 export const AppRouter = () => {
   return (
     <Router>
-      <h1>Welcome to React Router!</h1>
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/list" element={<List />} />

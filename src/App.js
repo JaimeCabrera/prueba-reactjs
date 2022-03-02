@@ -6,10 +6,10 @@ import { store } from "./store/store";
 
 export const App = () => {
   return (
-    <div className="container">
+    <>
       <Provider store={store}>
         <AppRouter />
       </Provider>
-    </div>
+    </>
   );
 };

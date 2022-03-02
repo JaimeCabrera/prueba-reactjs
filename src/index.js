@@ -4,6 +4,8 @@ import { App } from "./App";
 
 // styles
 import "./styles/app.scss";
+// boostrap js
+import "bootstrap/dist/js/bootstrap";
 
 ReactDOM.render(
   <React.StrictMode>
