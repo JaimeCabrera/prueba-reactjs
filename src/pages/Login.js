@@ -43,9 +43,8 @@ export const Login = () => {
         {error && (
           <>
             <div className="alert alert-danger" role="alert">
-              Usuario o contraseña incorrecto
+              Usuario y/o contraseña incorrectos
             </div>
-            +
           </>
         )}
         <div className="form-group mt-2 mb-2">
