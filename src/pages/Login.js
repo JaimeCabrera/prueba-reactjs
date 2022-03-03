@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { startLoginUsernamePassword } from "../actions/auth";
@@ -23,17 +23,20 @@ export const Login = () => {
     e.preventDefault();
     // veriffy username with api
     dispatch(startLoginUsernamePassword(username));
+    // navigate("/list", { replace: false });
   };
   if (!loading) {
     navigate("/list", { replace: false });
   } else {
-    return (
-      <>
-        <Loading />
-      </>
-    );
+    return <Loading />;
   }
+  // if (loading) {
+  //   navigate("/list", { replace: false });
+  // } else {
+  //   <Loading />;
+  // }
 
+  // !loading ? <Loading /> : navigate("/list", { replace: false });
   return (
     <div className="container">
       <form onSubmit={handleSubmit}>
