@@ -14,8 +14,8 @@ export const Login = () => {
   const navigate = useNavigate();
   // useForm
   const [values, handleInputChange] = useForm({
-    username: "Luke Skywalker",
-    password: "blond",
+    username: "",
+    password: "",
   });
   // extract form values
   const { username, password } = values;
