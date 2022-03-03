@@ -18,8 +18,7 @@ export const List = () => {
   }, [films]);
   console.log(result);
   const handleClick = (film) => {
-    navigate("/list-detail");
-    console.log("enviando", film);
+    navigate("/list-detail", { state: film });
   };
   return (
     <>
