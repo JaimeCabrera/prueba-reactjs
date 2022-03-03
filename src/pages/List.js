@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { getFilmInfo } from "../services/filmService";
 
 export const List = () => {
   const { name, created, films } = useSelector((state) => state.auth);
   const [result, setResult] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // console.log("estos son los films", data);
@@ -16,6 +17,10 @@ export const List = () => {
     filmsDetails();
   }, [films]);
   console.log(result);
+  const handleClick = (film) => {
+    navigate("/list-detail");
+    console.log("enviando", film);
+  };
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -46,39 +51,46 @@ export const List = () => {
         </div>
       </nav>
       {/* lista */}
-      <ul className="list-group-item align-items-start">
+      <div className="list-group align-items">
         <div className="ms-2 me-auto">
           <div className="fw-bold">Nombre: {name}</div>
           Creado: {created}
         </div>
         {/* acco item */}
 
-        <div className="col-12 mt-4">
+        <div className="col-11 mt-4 mx-auto">
           <div className="list-group">
             <Link
               to="/list-detail"
               className="list-group-item list-group-item-action bg-dark disabled fw-bold text-white"
               aria-current="true"
             >
-              Films
+              Lista de peliculas
             </Link>
             {result.map((el, index) => {
               return (
-                <Link
-                  to="/list-detail"
-                  class="list-group-item text-black-50"
+                <button
+                  type="button"
+                  className="list-group-item list-group-item-action"
+                  onClick={() => handleClick(el)}
                   key={index}
                 >
-                  <b>Titulo</b>: {el.title} <br />
-                  <b>Director</b>: {el.director} <br />
-                  <b>Opening crawl</b>:
-                  <div class="col-12 text-truncate">{el.opening_crawl}</div>
-                </Link>
+                  <span>
+                    <b>Título</b>: {el.title}
+                  </span>
+                  <br />
+                  <span>
+                    <b>Director</b>: {el.director}
+                  </span>
+                  <div className="col-12 text-truncate">
+                    <b>Opening crawl</b>: {el.opening_crawl}
+                  </div>
+                </button>
               );
             })}
           </div>
         </div>
-      </ul>
+      </div>
     </>
   );
 };
