@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { startLoginUsernamePassword } from "../actions/auth";
 import { useForm } from "../hooks/useForm";
 import video from "../assets/video-login.mp4";
+import { encryptPasword } from "../utils/crypto";
 
 export const Login = () => {
   // dispatch
@@ -22,7 +23,8 @@ export const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // veriffy username with api
-    dispatch(startLoginUsernamePassword(username));
+    const passwordEncrypted = encryptPasword(password);
+    dispatch(startLoginUsernamePassword(username, passwordEncrypted));
     // navigate("/list");
   };
 
@@ -53,7 +55,7 @@ export const Login = () => {
             className="form-control"
             name="username"
             autoComplete="off"
-            placeholder="Ej: Luke Skywalker"
+            placeholder="Username: Luke Skywalker"
             value={username}
             onChange={handleInputChange}
           />

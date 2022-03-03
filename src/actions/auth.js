@@ -1,10 +1,10 @@
 import { handleLogin } from "../services/loginService";
 import { types } from "../types/types";
 
-export const startLoginUsernamePassword = (username) => {
+export const startLoginUsernamePassword = (username, password) => {
   return async (dispatch) => {
     // verificando si el usuario existe en la api
-    const { results } = await handleLogin(username);
+    const { results } = await handleLogin(username, password);
     if (!results) {
       dispatch(startLoading());
       dispatch(loginError());
