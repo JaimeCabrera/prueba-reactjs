@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/JaimeCabrera/prueba-reactjs/static/css/main.c4243052.css",
+    "main.js": "/JaimeCabrera/prueba-reactjs/static/js/main.dce2f895.js",
+    "static/media/video-login.mp4": "/JaimeCabrera/prueba-reactjs/static/media/video-login.42f0b4b0087d70f254f2.mp4",
+    "index.html": "/JaimeCabrera/prueba-reactjs/index.html",
+    "main.c4243052.css.map": "/JaimeCabrera/prueba-reactjs/static/css/main.c4243052.css.map",
+    "main.dce2f895.js.map": "/JaimeCabrera/prueba-reactjs/static/js/main.dce2f895.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c4243052.css",
+    "static/js/main.dce2f895.js"
+  ]
+}
