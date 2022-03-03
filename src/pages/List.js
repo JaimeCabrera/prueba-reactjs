@@ -42,7 +42,12 @@ export const List = () => {
             {result.length === 0 && <Loading />}
             {result.map((film, index) => {
               return (
-                <FilmItem film={film} index={index} handleClick={handleClick} />
+                <FilmItem
+                  key={index}
+                  film={film}
+                  index={index}
+                  handleClick={handleClick}
+                />
               );
             })}
           </div>

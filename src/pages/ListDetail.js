@@ -29,11 +29,11 @@ export const ListDetail = () => {
   return (
     <div className="container mb-5">
       <div className="col-12 mt-4">
-        <div class="card">
+        <div className="card">
           <div className="card-header">
             <span className="card-title fw-bold">{state.title}</span>
           </div>
-          <div class="card-body d-flex flex-column">
+          <div className="card-body d-flex flex-column">
             <span className="card-title">Director: {state.director}</span>
             <span className="card-title">Productor(es): {state.producer}</span>
             <span className="card-title">

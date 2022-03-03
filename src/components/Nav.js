@@ -1,7 +1,13 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { startLogout } from "../actions/auth";
 
 export const Nav = () => {
+  const dispatch = useDispatch();
+  const handleLogout = () => {
+    dispatch(startLogout());
+  };
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container-fluid">
@@ -26,6 +32,7 @@ export const Nav = () => {
                 className="nav-link my-2 my-lg-0 "
                 aria-current="page"
                 to="/"
+                onClick={handleLogout}
               >
                 Logout
               </Link>

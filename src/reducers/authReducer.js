@@ -9,19 +9,33 @@ export const authReducer = (state = {}, action) => {
         films: [...action.payload.films],
       };
     case types.logout:
-      return {};
+      return {
+        name: "",
+        created: "",
+        films: [],
+      };
     case types.startLogin:
       return {
         ...state,
-        auth: false,
         loading: true,
       };
     case types.finishLogin:
       return {
         ...state,
-        auth: true,
         loading: false,
       };
+    case types.loginError: {
+      return {
+        ...state,
+        error: true,
+      };
+    }
+    case types.loginSuccess: {
+      return {
+        ...state,
+        error: false,
+      };
+    }
     default:
       return state;
   }

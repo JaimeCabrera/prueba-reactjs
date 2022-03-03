@@ -1,21 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { startLoginUsernamePassword } from "../actions/auth";
-import { Loading } from "../components/Loading";
 import { useForm } from "../hooks/useForm";
 import video from "../assets/video-login.mp4";
 
 export const Login = () => {
   // dispatch
   const dispatch = useDispatch();
-  const { loading } = useSelector((state) => state.auth);
+  const { loading, error } = useSelector((state) => state.auth);
   // hook para la navegacion
   const navigate = useNavigate();
   // useForm
   const [values, handleInputChange] = useForm({
-    username: "Luke Skywalker",
-    password: "blond",
+    username: "",
+    password: "",
   });
   // extract form values
   const { username, password } = values;
@@ -24,13 +23,15 @@ export const Login = () => {
     e.preventDefault();
     // veriffy username with api
     dispatch(startLoginUsernamePassword(username));
-    // navigate("/list", { replace: false });
+    // navigate("/list");
   };
-  if (!loading) {
-    navigate("/list", { replace: false });
-  } else {
-    return <Loading />;
-  }
+
+  useEffect(() => {
+    if (error === false) {
+      navigate("/list", { replace: false });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [error]);
 
   return (
     <div className="d-flex flex-column align-items-center justify-content-center login-container ">
@@ -39,6 +40,14 @@ export const Login = () => {
       </video>
       <h1 className="text-white">LOGO</h1>
       <form onSubmit={handleSubmit} className="d-flex flex-column w-100 p-5">
+        {error && (
+          <>
+            <div className="alert alert-danger" role="alert">
+              Usuario o contraseña incorrecto
+            </div>
+            +
+          </>
+        )}
         <div className="form-group mt-2 mb-2">
           <input
             type="text"
