@@ -3,7 +3,7 @@ import { types } from "../types/types";
 
 export const startLoginUsernamePassword = (username, password) => {
   return async (dispatch) => {
-    // verificando si el usuario existe en la api
+    // verificando si el usuario y el password existe en la api
     const { results } = await handleLogin(username, password);
     if (!results) {
       dispatch(startLoading());
@@ -18,7 +18,6 @@ export const startLoginUsernamePassword = (username, password) => {
       dispatch(finishLoading());
       dispatch(login(name, created, films));
       dispatch(loginSuccess());
-      // dispatch(getActorInfo(username));
     }
   };
 };

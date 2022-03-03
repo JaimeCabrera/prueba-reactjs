@@ -7,8 +7,22 @@ export const getFilmInfo = async (films) => {
   await Promise.all(
     films.map((url) =>
       axios.get(url).then((res) => {
-        // console.log(res.data);
         response.push(res.data);
+      })
+    )
+  );
+
+  // console.log(newResponse);
+  return response;
+};
+
+export const getFilmDetails = async (films) => {
+  // modificando la respuesta añadiendole el valor del nombre de mundo
+  const response = [];
+  await Promise.all(
+    films.map((el) =>
+      axios.get(el.homeworld).then((res) => {
+        response.push({ ...el, homeworld_name: res.data.name });
       })
     )
   );

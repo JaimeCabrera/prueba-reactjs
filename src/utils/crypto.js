@@ -1,6 +1,6 @@
 import CryptoJS from "crypto-js";
 
-const SECRET_KEY = "Star*Wars*SWAPI*-Test/2022-02-2";
+const SECRET_KEY = "Star*Wars*SWAPI*-Test/2022-02-26";
 
 export const encryptPasword = (texto) => {
   const passwordEncripted = CryptoJS.AES.encrypt(texto, SECRET_KEY).toString();

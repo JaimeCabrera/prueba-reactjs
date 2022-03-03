@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Loading } from "../components/Loading";
-import { getFilmInfo } from "../services/filmService";
+import { getFilmDetails, getFilmInfo } from "../services/filmService";
 import { saveVisit } from "../services/localStorageService";
 
 export const ListDetail = () => {
@@ -13,7 +13,8 @@ export const ListDetail = () => {
     // console.log("estos son los films", data);
     const filmsDetails = async () => {
       const data = await getFilmInfo(state.characters);
-      setResult(data);
+      const filmDetails = await getFilmDetails(data);
+      setResult(filmDetails);
     };
     filmsDetails();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -23,9 +24,9 @@ export const ListDetail = () => {
     // save visits on localStorage
     const data = saveVisit(state.title);
     setVisits(data);
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   return (
     <div className="container mb-5">
       <div className="col-12 mt-4">
@@ -42,34 +43,34 @@ export const ListDetail = () => {
           </div>
         </div>
         <span className="card-title mt-5 fw-bold">Personajes </span>
-
-        <table className="table table-responsive table-striped mt-5">
-          <thead className="bg-dark text-white">
-            <tr>
-              <th>Nombre</th>
-              <th>Homeworld</th>
-              <th>hair_color</th>
-              <th>Height</th>
-            </tr>
-          </thead>
-          {result.length === 0 ? (
-            <Loading />
-          ) : (
-            <tbody>
-              {/* {JSON.stringify(result)} */}
-              {result.map((film, index) => {
-                return (
-                  <tr key={index}>
-                    <td>{film.name}</td>
-                    <td>{film.homeworld}</td>
-                    <td>{film.hair_color}</td>
-                    <td>{film.height}</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          )}
-        </table>
+        <div className="table-responsive">
+          <table className="table table-responsive table-striped mt-5">
+            <thead className="bg-dark text-white">
+              <tr>
+                <th>Nombre</th>
+                <th>Homeworld</th>
+                <th>hair_color</th>
+                <th>Height</th>
+              </tr>
+            </thead>
+            {result.length === 0 ? (
+              <Loading />
+            ) : (
+              <tbody>
+                {result.map((film, index) => {
+                  return (
+                    <tr key={index}>
+                      <td>{film.name}</td>
+                      <td>{film.homeworld_name}</td>
+                      <td>{film.hair_color}</td>
+                      <td>{film.height}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            )}
+          </table>
+        </div>{" "}
         <h3 className="text-center text-primary">Numero de visitas {visits}</h3>
       </div>
     </div>

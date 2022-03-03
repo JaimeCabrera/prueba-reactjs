@@ -14,8 +14,8 @@ export const Login = () => {
   const navigate = useNavigate();
   // useForm
   const [values, handleInputChange] = useForm({
-    username: "",
-    password: "",
+    username: "Luke Skywalker",
+    password: "blond",
   });
   // extract form values
   const { username, password } = values;
@@ -57,6 +57,7 @@ export const Login = () => {
             autoComplete="off"
             placeholder="Username: Luke Skywalker"
             value={username}
+            required
             onChange={handleInputChange}
           />
         </div>
