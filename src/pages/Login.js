@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { startLoginUsernamePassword } from "../actions/auth";
 import { Loading } from "../components/Loading";
 import { useForm } from "../hooks/useForm";
+import video from "../assets/video-login.mp4";
 
 export const Login = () => {
   // dispatch
@@ -30,16 +31,14 @@ export const Login = () => {
   } else {
     return <Loading />;
   }
-  // if (loading) {
-  //   navigate("/list", { replace: false });
-  // } else {
-  //   <Loading />;
-  // }
 
-  // !loading ? <Loading /> : navigate("/list", { replace: false });
   return (
-    <div className="container">
-      <form onSubmit={handleSubmit}>
+    <div className="d-flex flex-column align-items-center justify-content-center login-container ">
+      <video className="video-login" loop muted autoPlay>
+        <source src={video} type="video/mp4" />
+      </video>
+      <h1 className="text-white">LOGO</h1>
+      <form onSubmit={handleSubmit} className="d-flex flex-column w-100 p-5">
         <div className="form-group mt-2 mb-2">
           <input
             type="text"
@@ -62,7 +61,11 @@ export const Login = () => {
             onChange={handleInputChange}
           />
         </div>
-        <button disabled={loading} type="submit" className="btn btn-primary">
+        <button
+          disabled={loading}
+          type="submit"
+          className="btn btn-success btn-block mt-4"
+        >
           Ingresar
         </button>
       </form>

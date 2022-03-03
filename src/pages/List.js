@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { FilmItem } from "../components/FfilmItem";
+import { Loading } from "../components/Loading";
 import { getFilmInfo } from "../services/filmService";
 
 export const List = () => {
@@ -16,48 +18,19 @@ export const List = () => {
     };
     filmsDetails();
   }, [films]);
-  console.log(result);
   const handleClick = (film) => {
     navigate("/list-detail", { state: film });
   };
   return (
     <>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
-        <div className="container-fluid">
-          <Link to="/list" className="navbar-brand">
-            Logo
-          </Link>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNavDropdown"
-            aria-controls="navbarNavDropdown"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div className="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul className="navbar-nav">
-              <li className="nav-item">
-                <Link className="nav-link active" aria-current="page" to="/">
-                  Logout
-                </Link>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
       {/* lista */}
-      <div className="list-group align-items">
+      <div className="container">
         <div className="ms-2 me-auto">
-          <div className="fw-bold">Nombre: {name}</div>
-          Creado: {created}
+          <div className="fw-bold"> {name}</div>
+          <div className="fw-bold">Usuario desde: {created}</div>
         </div>
-        {/* acco item */}
 
-        <div className="col-11 mt-4 mx-auto">
+        <div className="col-12 mt-4">
           <div className="list-group">
             <Link
               to="/list-detail"
@@ -66,25 +39,10 @@ export const List = () => {
             >
               Lista de peliculas
             </Link>
-            {result.map((el, index) => {
+            {result.length === 0 && <Loading />}
+            {result.map((film, index) => {
               return (
-                <button
-                  type="button"
-                  className="list-group-item list-group-item-action"
-                  onClick={() => handleClick(el)}
-                  key={index}
-                >
-                  <span>
-                    <b>Título</b>: {el.title}
-                  </span>
-                  <br />
-                  <span>
-                    <b>Director</b>: {el.director}
-                  </span>
-                  <div className="col-12 text-truncate">
-                    <b>Opening crawl</b>: {el.opening_crawl}
-                  </div>
-                </button>
+                <FilmItem film={film} index={index} handleClick={handleClick} />
               );
             })}
           </div>
